@@ -1,0 +1,42 @@
+{
+  "name": "personification",
+  "version": "0.0.1",
+  "description": "",
+  "main": "build/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf build && babel source --out-dir build",
+    "prepublish": "npm run format && npm run lint && nsp check && npm run build",
+    "lint": "eslint source",
+    "format": "prettier-standard \"source/**/*.js\""
+  },
+  "keywords": [],
+  "author": "rogerbf <roger@bergfa.lk> (http://bergfa.lk/)",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "6.26.0",
+    "babel-eslint": "8.0.1",
+    "babel-plugin-add-module-exports": "0.2.1",
+    "babel-plugin-dynamic-import-node": "1.1.0",
+    "babel-preset-env": "1.6.1",
+    "babel-preset-stage-3": "6.24.1",
+    "eslint-config-standard": "10.2.1",
+    "eslint-plugin-import": "2.8.0",
+    "eslint-plugin-node": "5.2.1",
+    "eslint-plugin-promise": "3.6.0",
+    "eslint-plugin-standard": "3.0.1",
+    "nsp": "2.8.1",
+    "prettier-standard": "7.0.3",
+    "rimraf": "2.6.2"
+  },
+  "module": "source/index.js",
+  "files": [
+    "LICENSE",
+    "README.md",
+    "source",
+    "build"
+  ],
+  "dependencies": {
+    "blake2s-js": "1.2.2"
+  }
+}
