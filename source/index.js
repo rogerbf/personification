@@ -1,4 +1,5 @@
 import Blake2s from 'blake2s-js'
+import chroma from 'chroma-js'
 
 export const stringToUint8Array = (input = ``) => {
   const source = unescape(encodeURIComponent(input))
