@@ -12,3 +12,9 @@ export const colorHash = (input = ``) =>
   new Blake2s(3)
     .update(stringToUint8Array(input))
     .hexDigest()
+
+export const complementary = (hex) => {
+  const [ hue, saturation, lightness ] = chroma(hex).hsl()
+  const complementary = [ Math.abs(hue - 180), saturation, lightness ]
+  return chroma.hsl(...complementary).hex()
+}
