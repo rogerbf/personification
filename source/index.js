@@ -19,7 +19,7 @@ export const colorHash = (input = ``) =>
     .update(stringToUint8Array(input))
     .hexDigest()
 
-export const complementary = (hex) => {
+export const complementary = hex => {
   const [ hue, saturation, lightness ] = chroma(hex).hsl()
   const complementary = [ addDegrees(180, hue), saturation, lightness ]
   return chroma.hsl(...complementary).hex()
