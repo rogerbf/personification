@@ -21,6 +21,30 @@ export const colorHash = (input = ``) =>
 
 export const complementary = hex => {
   const [ hue, saturation, lightness ] = chroma(hex).hsl()
+  // Note that for hue-less colors (black, white, and grays)
+  // the hue component will be NaN. [NaN,0,1]
   const complementary = [ addDegrees(180, hue), saturation, lightness ]
   return chroma.hsl(...complementary).hex()
+}
+
+export const triad = hex => {
+  const [ hue, saturation, lightness ] = chroma(hex).hsl()
+  const hue120 = addDegrees(hue, 120)
+  const hue240 = addDegrees(hue, 240)
+  return [
+    chroma.hsl(hue120, saturation, lightness).hex(),
+    chroma.hsl(hue240, saturation, lightness).hex()
+  ]
+}
+
+export const tetrad = hex => {
+  const [ hue, saturation, lightness ] = chroma(hex).hsl()
+  const hue90 = addDegrees(hue, 90)
+  const hue180 = addDegrees(hue, 180)
+  const hue270 = addDegrees(hue, 270)
+  return [
+    chroma.hsl(hue90, saturation, lightness).hex(),
+    chroma.hsl(hue180, saturation, lightness).hex(),
+    chroma.hsl(hue270, saturation, lightness).hex()
+  ]
 }
