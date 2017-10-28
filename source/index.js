@@ -1,5 +1,5 @@
-import Blake2s from 'blake2s-js'
-import chroma from 'chroma-js'
+import Blake2s from "blake2s-js"
+import chroma from "chroma-js"
 
 export const addDegrees = (a, b) => {
   var output = (a + b) % 360
@@ -16,23 +16,21 @@ export const stringToUint8Array = (input = ``) => {
 
 export const colorHash = (input = ``, { colors = 1 } = {}) => {
   if (colors > 10) throw new RangeError(`Too many colors, max is 10`)
-  return (
-    new Blake2s(colors * 3)
-      .update(stringToUint8Array(input))
-      .hexDigest()
-      .match(/.{1,6}/g)
-  )
+  return new Blake2s(colors * 3)
+    .update(stringToUint8Array(input))
+    .hexDigest()
+    .match(/.{1,6}/g)
 }
 export const complementary = hex => {
   const [ hue, saturation, lightness ] = chroma(hex).hsl()
   if (isNaN(hue)) {
     switch (chroma(hex).name()) {
     case `white`:
-      throw new Error(`White (${hex}) has no complementary color`)
+      throw new Error(`White (${ hex }) has no complementary color`)
     case `black`:
-      throw new Error(`Black (${hex}) has no complementary color`)
+      throw new Error(`Black (${ hex }) has no complementary color`)
     default:
-      throw new Error(`Grey (${hex}) has no complementary color`)
+      throw new Error(`Grey (${ hex }) has no complementary color`)
     }
   }
   const complementary = [ addDegrees(180, hue), saturation, lightness ]
