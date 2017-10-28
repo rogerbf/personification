@@ -25,8 +25,16 @@ export const colorHash = (input = ``, { colors = 1 } = {}) => {
 }
 export const complementary = hex => {
   const [ hue, saturation, lightness ] = chroma(hex).hsl()
-  // Note that for hue-less colors (black, white, and grays)
-  // the hue component will be NaN. [NaN,0,1]
+  if (isNaN(hue)) {
+    switch (chroma(hex).name()) {
+    case `white`:
+      throw new Error(`White (${hex}) has no complementary color`)
+    case `black`:
+      throw new Error(`Black (${hex}) has no complementary color`)
+    default:
+      throw new Error(`Grey (${hex}) has no complementary color`)
+    }
+  }
   const complementary = [ addDegrees(180, hue), saturation, lightness ]
   return chroma.hsl(...complementary).hex()
 }
