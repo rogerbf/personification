@@ -14,11 +14,15 @@ export const stringToUint8Array = (input = ``) => {
   return output
 }
 
-export const colorHash = (input = ``) =>
-  new Blake2s(3)
-    .update(stringToUint8Array(input))
-    .hexDigest()
-
+export const colorHash = (input = ``, { colors = 1 } = {}) => {
+  if (colors > 10) throw new RangeError(`Too many colors, max is 10`)
+  return (
+    new Blake2s(colors * 3)
+      .update(stringToUint8Array(input))
+      .hexDigest()
+      .match(/.{1,6}/g)
+  )
+}
 export const complementary = hex => {
   const [ hue, saturation, lightness ] = chroma(hex).hsl()
   // Note that for hue-less colors (black, white, and grays)
