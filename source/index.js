@@ -42,6 +42,7 @@ export const triad = hex => {
   const hue120 = addDegrees(hue, 120)
   const hue240 = addDegrees(hue, 240)
   return [
+    hex[0] !== `#` ? `#${ hex }` : hex,
     chroma.hsl(hue120, saturation, lightness).hex(),
     chroma.hsl(hue240, saturation, lightness).hex()
   ]
@@ -53,6 +54,7 @@ export const tetrad = hex => {
   const hue180 = addDegrees(hue, 180)
   const hue270 = addDegrees(hue, 270)
   return [
+    hex[0] !== `#` ? `#${ hex }` : hex,
     chroma.hsl(hue90, saturation, lightness).hex(),
     chroma.hsl(hue180, saturation, lightness).hex(),
     chroma.hsl(hue270, saturation, lightness).hex()
