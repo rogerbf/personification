@@ -1,5 +1,6 @@
 import Blake2s from "blake2s-js"
 import chroma from "chroma-js"
+import { constrain as constrainNumber } from "constrain-number"
 
 export const addDegrees = (a, b) => {
   var output = (a + b) % 360
@@ -59,4 +60,20 @@ export const tetrad = hex => {
     chroma.hsl(hue180, saturation, lightness).hex(),
     chroma.hsl(hue270, saturation, lightness).hex()
   ]
+}
+
+export const constrain = (
+  hex,
+  limits = {
+    hue: { min: 0, max: 360 },
+    saturation: { min: 0.5, max: 1 },
+    lightness: { min: 0.4, max: 0.9 }
+  }
+) => {
+  const [ hue, saturation, lightness ] = chroma(hex).hsl()
+  return chroma.hsl(
+    constrainNumber(limits.hue)(hue),
+    constrainNumber(limits.saturation)(saturation),
+    constrainNumber(limits.lightness)(lightness)
+  ).hex()
 }
