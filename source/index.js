@@ -1,6 +1,7 @@
 import Blake2s from "blake2s-js"
 import chroma from "chroma-js"
 import { constrain as constrainNumber } from "constrain-number"
+import svgCircle from "./svg-circle"
 
 export const addDegrees = (a, b) => {
   var output = (a + b) % 360
@@ -66,14 +67,19 @@ export const constrain = (
   hex,
   limits = {
     hue: { min: 0, max: 360 },
-    saturation: { min: 0.5, max: 1 },
-    lightness: { min: 0.4, max: 0.9 }
+    saturation: { min: 0.6, max: 1 },
+    lightness: { min: 0.6, max: 0.8 }
   }
 ) => {
   const [ hue, saturation, lightness ] = chroma(hex).hsl()
-  return chroma.hsl(
-    constrainNumber(limits.hue)(hue),
-    constrainNumber(limits.saturation)(saturation),
-    constrainNumber(limits.lightness)(lightness)
-  ).hex()
+  return chroma
+    .hsl(
+      constrainNumber(limits.hue)(hue),
+      constrainNumber(limits.saturation)(saturation),
+      constrainNumber(limits.lightness)(lightness)
+    )
+    .hex()
 }
+
+export const circle = (input, diameter = 300) =>
+  svgCircle(triad(constrain(colorHash(input).pop())), diameter)
