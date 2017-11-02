@@ -1,7 +1,20 @@
 const p = require(".") // eslint-disable-line
 
-const body = document.querySelector(`body`)
+const onChangeHandler = (output, { target: { value } }) => {
+  output.innerHTML = value ? p.circle(value, 100) : ``
+}
 
-const container = document.createElement(`div`)
-container.innerHTML = p.circle(`personification`, 100)
-body.appendChild(container)
+window.addEventListener(`DOMContentLoaded`, () => {
+  const output = document.createElement(`div`)
+  const input = document.createElement(`input`)
+  input.setAttribute(`type`, `text`)
+  input.setAttribute(`placeholder`, `type something`)
+
+  const body = document.querySelector(`body`)
+  body.appendChild(input)
+  body.appendChild(output)
+
+  input.addEventListener(`input`, event => {
+    onChangeHandler(output, event)
+  })
+})
