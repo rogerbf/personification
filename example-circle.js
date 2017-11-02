@@ -6,15 +6,15 @@ const onChangeHandler = (output, { target: { value } }) => {
 
 window.addEventListener(`DOMContentLoaded`, () => {
   const output = document.createElement(`div`)
+
   const input = document.createElement(`input`)
   input.setAttribute(`type`, `text`)
   input.setAttribute(`placeholder`, `type something`)
+  input.addEventListener(`input`, event => {
+    onChangeHandler(output, event)
+  })
 
   const body = document.querySelector(`body`)
   body.appendChild(input)
   body.appendChild(output)
-
-  input.addEventListener(`input`, event => {
-    onChangeHandler(output, event)
-  })
 })
